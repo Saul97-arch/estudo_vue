@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Objetivo do curso</h1>
+    <!-- Foi montado aqui aqui que funfa o Vue -->
+    <section id="curso">
+      <h2>Meu objetivo</h2>
+      <!-- O nome disso é interpolação, interpolation pros gringo -->
+      <p>{{ objetivo }}</p>
+      <!-- Funções podem ser chamadas dentro dos double curly braces -->
+      <p>{{ mostraMeta() }}</p>
+      <p>{{ qualquerCoisa }}</p>
+      <!-- Veja que você pode adicionar com vue atributos, entre tag é interpolation -->
+      <p>
+        Vamos saber mais sobre o vue
+        <a v-bind:href="vueLink" v-bind:target="blank">Sobre o Vue</a>
+      </p>
+      <h1>Mostrando HTML, tipo no processo innerHTML</h1>
+      <p v-html="htmlSnipet"></p>
+    </section>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            objetivo1: "Olha o Vue ae!",
+            objetivo:
+              "Terminar o curso de Vue e me tornar um profissional melhor.",
+            objetivo2: "Masterar essa porra ahhhhh",
+            qualquerCoisa: [1, 2, 3, { jogador: "Ronaldo" }],
+            vueLink: "https://vuejs.org/",
+            blank: "_blank",
+            htmlSnipet: "<h2> Olha aí, sem usar vanilla hahaha</h2>",
+          };
+        },
+        methods: {
+          mostraMeta() {
+            const random = Math.random();
+            if (random < 0.5) {
+              return this.objetivo1;
+            } else {
+              return this.objetivo2;
+            }
+          },
+        },
+      });
+
+      app.mount("#curso");
+    </script>
+  </body>
+</html>

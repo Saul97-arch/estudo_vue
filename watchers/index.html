@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Vue Events</h1>
+    </header>
+    <section id="events">
+      <h2>Events in Action</h2>
+      <button v-on:click="add(10)">Add 10</button>
+      <button v-on:click="reduce(5)">Subtract 5</button>
+      <p>Result: {{ counter }}</p>
+      <!-- O bind age aqui como um querySelector, para poder referênciar um elemento no HTML no JS do Vue -->
+      <!-- <input type="text" v-bind:value="name" v-on:input="setName($event, 'Schwarzmüller')"> -->
+      <!-- Two way binding com o v-model, é um conceito do vue que simplifica o código acima -->
+      <input type="text" v-model="name" />
+      <input type="text" v-model="lastName" />
+      <button v-on:click="resetInput">Reset Input</button>
+      <!-- Aqui a propriedade computada é chamada, sem parênteses, aqui usamos elas como variáveis, não como funções -->
+      <!-- Se fosse um método aqui dentro, ia chamar ele de novo e de novo toda vez que atualizassemos uma parte da página em específico -->
+      <p>Your Name: {{ fullName }}</p>
+    </section>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            counter: 0,
+            name: "",
+            // fullName: "",
+            lastName: "",
+          };
+        },
+        computed: {
+          // Veja nos watchers o tanto de código, com computed temos o mesmo behavior com menos código e maís legível
+          fullName() {
+            if (this.name === "" || this.lastName === "") {
+              return "";
+            } else {
+              return this.name + " " + this.lastName  ;
+            }
+          },
+        },
+        watch: {
+          // Aqui que os watcher brilham, se você quiser rodar uma lógica que talvez altere uma propriedade do data
+          // Mas não deveria sempre fazer isso, exemplo abaixo, apenas quando uma certa condição é pega
+          // Fazer isso com uma propriedade computada é mais dificíl e não recomendado   
+          // http requests, timers, isso tudo é bom relacionar com watcher
+          counter(value) {
+            // Esse paranauê do that, penso eu que não seria necessário com arrow function
+            const that = this;
+            setTimeout(function() {
+              that.counter = 0;
+            }, 2000)
+          }
+          // Você pode usar um nome do data, ou do computed propertie como um nome para um método watcher
+          // Por isso o nome watcher, sempre que a propriedade name mudar, esta que tem o mesmo nome do watcher
+          // O método watcher name vai ser executado
+          /* name(value) {
+            if (value === "") {
+              this.fullName = "";
+            } else {
+              this.fullName = value + this.lastName;
+            }
+          },
+          lastName(value) {
+            if (value === "") {
+              this.fullName = "";
+            } else {
+              this.fullName = this.name + " " + value;
+            }
+          } */
+        },
+        methods: {
+          setName(event, lastName) {
+            this.name = event.target.value;
+          },
+          add(num) {
+            this.counter = this.counter + num;
+          },
+          reduce(num) {
+            this.counter = this.counter - num;
+            // this.counter--;
+          },
+          resetInput() {
+            this.name = "";
+          },
+        },
+      });
+
+      app.mount("#events");
+    </script>
+  </body>
+</html>

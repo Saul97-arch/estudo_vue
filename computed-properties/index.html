@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Events</h1>
+    </header>
+    <section id="events">
+      <h2>Events in Action</h2>
+      <button v-on:click="add(10)">Add 10</button>
+      <button v-on:click="reduce(5)">Subtract 5</button>
+      <p>Result: {{ counter }}</p>
+      <!-- O bind age aqui como um querySelector, para poder referênciar um elemento no HTML no JS do Vue -->
+      <!-- <input type="text" v-bind:value="name" v-on:input="setName($event, 'Schwarzmüller')"> -->
+      <!-- Two way binding com o v-model, é um conceito do vue que simplifica o código acima -->
+      <input type="text" v-model="name" />
+      <button v-on:click="resetInput">Reset Input</button>
+      <!-- Aqui a propriedade computada é chamada, sem parênteses, aqui usamos elas como variáveis, não como funções -->
+      <!-- Se fosse um método aqui dentro, ia chamar ele de novo e de novo toda vez que atualizassemos uma parte da página em específico -->
+      <p>Your Name: {{ fullName }}</p>
+    </section>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            counter: 0,
+            name: "",
+          };
+        },
+        computed: {
+          // Os métodos definidos aqui seram chamados de maneira diferente
+          // Para performance, o computed é o melhor
+          fullName() {
+            if (this.name === "") {
+              return "";
+            }
+            return this.name + " " + "Miller";
+          },
+        },
+        methods: {
+          setName(event, lastName) {
+            this.name = event.target.value;
+          },
+          add(num) {
+            this.counter = this.counter + num;
+          },
+          reduce(num) {
+            this.counter = this.counter - num;
+            // this.counter--;
+          },
+          resetInput() {
+            this.name = "";
+          },
+        },
+      });
+
+      app.mount("#events");
+    </script>
+  </body>
+</html>

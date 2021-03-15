@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contador</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Vai contando!</h1>
+      <!-- Aqui não vai mudar o dado por causa da diretiva v-once -->
+      <p v-once>Começa no {{ cont }}</p>
+      <p>{{ cont }}</p>
+      <button v-on:click="clique(4)">Clique para subir</button>
+      <!-- Outro Event Modifier -->
+      <button v-on:click.right="cliqueDesce(4)">Clique para descer</button>
+      <h2>Adicione nomes</h2>
+      <!-- O v-bind:value relaciona a propriedade nome, com o valor do input -->
+      <!-- O v-model substitui os dois v-on e v-bind -->
+      <input
+        type="text"
+        v-on:input="setName($event, 'Viller')"
+        v-bind:value="nome"
+      />
+      <p>Um nome: {{ nome }}</p>
+      <button v-on:click="clearInput">Resetar</button>
+      <!-- O nome disso é Event Modifiers, veja mais exemplos nas docs -->
+      <form v-on:submit.prevent="submitForm">
+        <input type="text" />
+        <button>Sign up</button>
+      </form>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            cont: 22,
+            nome: "", // Pode começar com um nome, ou vazio,
+            confirmedName: "",
+          };
+        },
+        methods: {
+          clearInput(event) {
+            this.nome = "";
+          },
+          confirmInput() {
+            this.confirmedName = this.nome;
+          },
+          submitForm() {
+            // Poderia passar o evento para parametro e dar o preventDefault()
+            alert("Enviado!");
+          },
+          setName(event, lastName) {
+            // o evento aqui é o mesmo do vanilla js, é feature do vanilla js
+            this.nome = event.target.value;
+          },
+          clique(num) {
+            this.cont = this.cont + num;
+          },
+          cliqueDesce(num) {
+            this.cont = this.cont - num;
+          },
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>
