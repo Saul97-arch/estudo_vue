@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section id="assignment">
+      <h2 v-model="name">{{name}}</h2>
+      <p v-model="age">YOUR AGE: {{age}}</p>
+
+      <p>YOUR AGE in 5 years : {{ age + 5 }}</p>
+      <p>Favorite Number: {{ random }}</p>
+      <div><img :src="url"></div>
+      <!-- Prepopulate the input field with your name via the "value" attribute -->
+      <!-- Could be v-bind:value, this is a shortand -->
+      <input type="text" :value="name"/>
+    </section>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            name: "Saulo",
+            age: 23,
+            url:
+              "https://cdn.pixabay.com/photo/2020/04/02/07/30/cat-4993808__340.jpg",
+          };
+        },
+        methods: {},
+        computed: {
+          random() {
+            return Math.random();
+          },
+        },
+      }).mount("#assignment");
+    </script>
+  </body>
+</html>
