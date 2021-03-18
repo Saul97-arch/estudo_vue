@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Vue Lists and Conditional Content</h1>
+    </header>
+    <section id="assignment">
+      <h2>Assignment</h2>
+      <!-- 1) Add code to manage a list of tasks in a Vue app -->
+      <!-- When clicking "Add Task" a new task with the entered text should be added -->
+      <input type="text" v-model="task" />
+      <button @click="addTask">Add Task</button>
+      <!-- Poderia adicionar um v-if, se o valor dele fosse verdade aparece, se não desaparece -->
+      <ul>
+        <!-- 2) Output the list of tasks here -->
+        <li v-for="(task, index) in tasks" :key="task" :class="classLi">
+          <p>{{ index }} - {{ task }}</p>
+        </li>
+      </ul>
+      <!-- 3) When the below button is pressed, the list should be shown or hidden -->
+      <!-- BONUS: Also update the button caption -->
+      <button @click="changeThings">{{ btnCaption }}</button>
+    </section>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            tasks: [],
+            task: "",
+            isHidden: false,
+            changeCaption: false,
+          };
+        },
+        computed: {
+          classLi() {
+            return { hidden: this.isHidden };
+          },
+          btnCaption() {
+            return this.isHidden ? "Show" : "Hide";
+          },
+        },
+        methods: {
+          addTask() {
+            this.tasks.push(this.task);
+          },
+          changeThings() {
+            this.isHidden = !this.isHidden;
+            this.changeCaption = !this.changeCaption;
+          },
+        },
+      });
+
+      app.mount("#assignment");
+    </script>
+  </body>
+</html>
