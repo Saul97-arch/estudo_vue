@@ -1,2 +1,2 @@
-# estudos vue
-Anotações sobre vue e exemplos de uso com o mesmo, o intuito deste repositório é criar uma documentação interativa aonde seja possível clonar e já executar os conceitos do Vue js sem nenhum imbroglio. 
+# Estudos vue
+Anotações sobre vue e exemplos de uso com o mesmo, o intuito deste repositório é criar uma documentação interativa aonde seja possível clonar e já executar os conceitos do Vue js sem nenhum imbroglio. Os tópicos seguem o fluxo do material do curso [Vue - The Complete Guide (w/ Router, Vuex, Composition API)](https://www.udemy.com/course/vuejs-2-the-complete-guide/) disponível na Udemy  
