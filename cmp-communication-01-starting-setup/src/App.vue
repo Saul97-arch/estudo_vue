@@ -6,18 +6,16 @@
     <ul>
       <!-- Props are passed from a parent to a child -->
       <!-- Props should not be mutated -->
+      <!-- The power of using v-for and binding shows again! -->
       <friend-contact
-        name="Manuel Lorenz"
-        phone-number="0123 49949"
-        email-address="manuelorenz@gmail.com"
-        is-favorite="1"
+        v-for="friend in friends"
+        :key="friend.id"
+        :name="friend.name"
+        :phone-number="friend.phone"
+        :email-address="friend.email"
+        :is-favorite="true"
       ></friend-contact>
-      <friend-contact
-        name="Julie Jones"
-        phone-number="32442 54643"
-        email-address="juliejones@gmail.com"
-        is-favorite="0"
-      ></friend-contact>
+      <!-- If you have a prop that need a JS value, use v-bind or the shorthand ':' -->
     </ul>
   </section>
 </template>

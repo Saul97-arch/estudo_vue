@@ -1,6 +1,6 @@
 <template>
   <li>
-    <h2>{{ name }} {{ friendIsFavorite === "1" ? "(favorite)" : "" }}</h2>
+    <h2>{{ name }} {{ friendIsFavorite ? "(favorite)" : "" }}</h2>
     <button @click="toggleFavorite">Toggle Favorite</button>
     <button @click="toggleDetails">
       {{ detailsAreVisible ? "Hide" : "Show" }} Details
@@ -20,7 +20,30 @@
 
 <script>
 export default {
-  props: ["name", "phoneNumber", "emailAddress", "isFavorite"],
+  /* props: ["name", "phoneNumber", "emailAddress", "isFavorite"], */
+  props: {
+    name: {
+      type: String,
+      required: true,
+    },
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
+    emailAddress: {
+      type: String,
+      required: true,
+    },
+    isFavorite: {
+      type: Boolean,
+      required: false,
+      /* Could be a function */
+      default: false,
+      /* validator: function (value) {
+        return value === "1" || value === "0";
+      }, */
+    },
+  },
   data() {
     return {
       detailsAreVisible: false,
@@ -31,7 +54,7 @@ export default {
         email: "manuel@localhost.com",
       },
       /* Now you should be able to change the value, because the prop is not being directly referenced */
-      friendIsFavorite: this.isFavorite
+      friendIsFavorite: this.isFavorite,
     };
   },
   methods: {
@@ -39,12 +62,8 @@ export default {
       this.detailsAreVisible = !this.detailsAreVisible;
     },
     toggleFavorite() {
-      if (this.friendIsFavorite === '1') {
-        this.friendIsFavorite = '0';
-      } else {
-        this.friendIsFavorite = '1';
-      }
-    }
+      this.friendIsFavorite = !this.friendIsFavorite;
+    },
   },
 };
 </script>
