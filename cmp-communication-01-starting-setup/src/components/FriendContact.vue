@@ -1,6 +1,6 @@
 <template>
   <li>
-    <h2>{{ name }} {{ friendIsFavorite ? "(favorite)" : "" }}</h2>
+    <h2>{{ name }} {{ isFavorite ? "(favorite)" : "" }}</h2>
     <button @click="toggleFavorite">Toggle Favorite</button>
     <button @click="toggleDetails">
       {{ detailsAreVisible ? "Hide" : "Show" }} Details
@@ -22,6 +22,10 @@
 export default {
   /* props: ["name", "phoneNumber", "emailAddress", "isFavorite"], */
   props: {
+    id: {
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -47,14 +51,7 @@ export default {
   data() {
     return {
       detailsAreVisible: false,
-      friend: {
-        id: "manuel",
-        name: "Manuel Lorenz",
-        phone: "0123 45678 90",
-        email: "manuel@localhost.com",
-      },
-      /* Now you should be able to change the value, because the prop is not being directly referenced */
-      friendIsFavorite: this.isFavorite,
+      
     };
   },
   methods: {
@@ -62,7 +59,7 @@ export default {
       this.detailsAreVisible = !this.detailsAreVisible;
     },
     toggleFavorite() {
-      this.friendIsFavorite = !this.friendIsFavorite;
+      this.$emit("toggle-favorite", this.id);
     },
   },
 };
