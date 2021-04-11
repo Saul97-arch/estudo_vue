@@ -3,6 +3,7 @@
     <header>
       <h1>My Friends</h1>
     </header>
+    <NewFriend @send-friend-data="sendFriend"></NewFriend>
     <ul>
       <!-- Props are passed from a parent to a child -->
       <!-- Props should not be mutated -->
@@ -23,7 +24,12 @@
 </template>
 
 <script>
+import NewFriend from "./components/NewFriend";
+
 export default {
+  components: {
+    NewFriend,
+  },
   data() {
     return {
       friends: [
@@ -46,10 +52,18 @@ export default {
   },
   methods: {
     toggleFavoriteStatus(friendId) {
-      const identifiedFriend = this.friends.find(friend => friend.id === friendId);
+      const identifiedFriend = this.friends.find(
+        (friend) => friend.id === friendId
+      );
       identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
-    }
-  }
+    },
+    sendFriend(name, phone, email, id) {
+      console.log("olá");
+      id = name;
+      this.friends.push({ name, phone, email, id });
+      console.log(this.friends);
+    },
+  },
 };
 </script>
 
@@ -108,5 +122,18 @@ header {
   background-color: #ec3169;
   border-color: #ec3169;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+}
+#app input {
+  font: inherit;
+  padding: 0.15rem;
+}
+#app label {
+  font-weight: bold;
+  margin-right: 1rem;
+  width: 7rem;
+  display: inline-block;
+}
+#app form div {
+  margin: 1rem 0;
 }
 </style>
