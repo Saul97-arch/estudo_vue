@@ -15,6 +15,7 @@
         {{ emailAddress }}
       </li>
     </ul>
+    <button @click="$emit('delete', id)">Delete</button>
   </li>
 </template>
 
@@ -48,9 +49,9 @@ export default {
       }, */
     },
   },
-  /* emits: ["toggle-favorite"], */
+  emits: ["toggle-favorite", "delete"],
   // Validation for emit event
-  emits: [{
+ /*  emits: [{
     "toggle-favorite": function(id) {
       if (id) {
         return true;
@@ -58,8 +59,11 @@ export default {
         console.warn("Id is missing");
         return false;
       }
+    },
+    "delete": function() {
+      // Validation to be done
     } 
-  }],
+  }], */
   data() {
     return {
       detailsAreVisible: false,

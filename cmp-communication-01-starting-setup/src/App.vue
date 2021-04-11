@@ -3,6 +3,7 @@
     <header>
       <h1>My Friends</h1>
     </header>
+    <!-- This is padron in react, vue uses kebab case -->
     <NewFriend @send-friend-data="sendFriend"></NewFriend>
     <ul>
       <!-- Props are passed from a parent to a child -->
@@ -17,6 +18,7 @@
         :email-address="friend.email"
         :is-favorite="friend.isFavorite"
         @toggle-favorite="toggleFavoriteStatus"
+        @delete="deleteContact"
       ></friend-contact>
       <!-- If you have a prop that need a JS value, use v-bind or the shorthand ':' -->
     </ul>
@@ -24,11 +26,12 @@
 </template>
 
 <script>
-import NewFriend from "./components/NewFriend";
+import NewFriend from './components/NewFriend.vue';
+/* import NewFriend from "./components/NewFriend"; */
 
-export default {
+export default {  
   components: {
-    NewFriend,
+    NewFriend
   },
   data() {
     return {
@@ -59,10 +62,17 @@ export default {
     },
     sendFriend(name, phone, email, id) {
       console.log("olá");
-      id = name;
-      this.friends.push({ name, phone, email, id });
+      id = name; // Poderia colocar um incrementador ou new Date pra ficar "unico";
+      // Pode declarar uma variável fora atribuindo as propriedades do objeto, mas o JS deixa assim
+      // Então não vejo o por que
+      this.friends.push({ name, phone, email, id, isFavorite: true });
       console.log(this.friends);
     },
+    deleteContact(friendId) {
+      // If the id's are equal remove that friend
+      // Filter comes in hand because it filter an array due a Boolean proposition
+      this.friends = this.friends.filter((friend) => friend.id !== friendId);
+    }
   },
 };
 </script>

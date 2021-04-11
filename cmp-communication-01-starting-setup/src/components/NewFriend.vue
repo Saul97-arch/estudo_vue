@@ -6,12 +6,15 @@
     <input type="text" v-model="phone" />
     <label for="email">Email</label>
     <input type="text" v-model="email" />
-    <button @click="sendFriendData">Insert new Friend</button>
+    <div>
+      <button @click="sendFriendData">Insert new Friend</button>
+    </div>
   </form>
 </template>
 
 <script>
 export default {
+  emits: ["send-friend-data"],
   data() {
     return {
       name: "",
